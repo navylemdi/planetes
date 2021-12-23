@@ -4,6 +4,7 @@ import random as random
 import numpy as np
 import time
 import matplotlib.pyplot as plt
+
 root = Tk()
 root.wm_title('Space')
 width = 1675
@@ -63,7 +64,6 @@ while Tx == True:
 
     if T/fps>=100 or len(Planetes)==1:
         Tx=False
-    print(len(Planetes))
 
 
 plt.figure()
