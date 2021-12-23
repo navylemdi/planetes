@@ -20,18 +20,16 @@ fps = 60
 # vr = [0, -8.73, -0.18, -0.09, -2.18]*1000 #m/s
 # def convert_distance(value):
 #     return value*width/pos[-1]
-All_traj=[]
-All_traj.append([])
-Planetes.append(planete(np.array([width/2, height/2], dtype=float), np.array([0, 0], dtype=float),10, 100))
-for i in range(1, NbPlanetes):
-    All_traj.append([])
+
+#Planetes.append(planete(np.array([width/2, height/2], dtype=float), np.array([0, 0], dtype=float),10, 100))
+for i in range(0, NbPlanetes):
     posx = random.randrange(0,width)
     posy = random.randrange(0,height)
     vx = random.randrange(-5,5)
     vy = random.randrange(-5,5)
-    r = random.randrange(5,6)
-    Planetes.append(planete(np.array([posx, posy], dtype=float), np.array([vx, vy], dtype=float), 2))
-T = 0#s
+    r = random.randrange(1,5)
+    Planetes.append(planete(np.array([posx, posy], dtype=float), np.array([vx, vy], dtype=float), r))
+T = 0
 Tx = True
 ENERGY = []
 while Tx == True:
@@ -60,11 +58,10 @@ while Tx == True:
     ENERGY.append(Energy)
     canvas.create_text(50, 20, text = "Energy: "+str(round(Energy,2)), fill = 'white')
     canvas.create_text(50, 50, text = "Time: "+str(round(T/fps,2)), fill = 'white')
-    #canvas.create_line(0,height/2,width,height/2)
     canvas.update()
     time.sleep(1/fps)
 
-    if T/fps>=100:
+    if T/fps>=10:
         Tx==False
 
 
