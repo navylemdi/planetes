@@ -12,7 +12,7 @@ height = 900
 canvas = Canvas(root, width = width, height=height, bg='black')
 canvas.grid(row=0, column=0)
 Planetes = []
-NbPlanetes = 400
+NbPlanetes = 1000
 fps = 120
 Circular = True
 # Masse = [1.989e30, 3.285e23, 4.867e24, 5.972e24,  6.39e23]#kg
@@ -38,7 +38,7 @@ for i in range(1, NbPlanetes):
         posy = random.randrange(0,height+1)
         vx = random.randrange(-5,5+1)/5
         vy = random.randrange(-5,5+1)/5
-    r = random.randrange(1,4+1)
+    r = random.random()
     Planetes.append(planete(np.array([posx, posy], dtype=float), np.array([vx, vy], dtype=float), r))
 
 T = 0
@@ -57,7 +57,7 @@ while Tx == True:
         method = 'Barnes-hut method'
         for planete1 in Planetes:
             qt.insert(planete1)
-            rect = Circle(planete1.pos[0], planete1.pos[1], planete1.m+20)
+            rect = Circle(planete1.pos[0], planete1.pos[1], planete1.r+20)
             #canvas.create_oval(rect.x-rect.w, rect.y-rect.h, rect.x+rect.w, rect.y+rect.h, outline = 'green')
             points = qt.query(rect) 
             for point in points:
@@ -119,7 +119,7 @@ while Tx == True:
     canvas.create_text(50, 40, text = "Time: "+str(round(T/fps,2)), fill = 'white', anchor = W)
     canvas.create_text(50, 20, text = "Nb planetes: "+str(round(len(Planetes),2)), fill = 'white', anchor = W)
     canvas.create_text(50, 60, text = methode, fill = 'white', anchor = W)
-
+    #qt.show(canvas)
     canvas.update()
     time.sleep(1/fps)
     if T/fps>=100 or len(Planetes)==1:
