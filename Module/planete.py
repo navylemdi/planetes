@@ -1,14 +1,16 @@
 import numpy as np
 
 class planete():
-    def __init__(self, pos, v, r, m = 1):
+    def __init__(self, pos, v, r=1, m = 1):
         self.pos = pos
         self.v = v
-        self.r = r
-        if m == 1:    
+        if m == 1 and r!=1:  
+            self.r = r  
             self.m = np.pi*(self.r)**2
-        else:
+        elif m!=1 and r==1:
             self.m=m
+            self.r = np.sqrt(self.m/np.pi)
+
         self.G = 1
         self.path=[]
         self.cross_boundary = False
@@ -19,7 +21,7 @@ class planete():
         else:
             self.d = np.linalg.norm(self.pos-other.pos)
             vectuni = (self.pos-other.pos)/self.d
-            self.fg = -(self.G*self.m*other.m/(self.d**2+1e-1)) * vectuni
+            self.fg = -(self.G*self.m*other.m/((self.d**2)+1)) * vectuni
             self.dv = self.fg/self.m
         self.v +=  self.dv
     

@@ -48,6 +48,7 @@ class quadtree():
         self.capacity = n
         self.point = []
         self.divided = False
+        self.barycentre = [self.boundary.x, self.boundary.y]
 
     def insert(self, planete):
         if not self.boundary.contains(point(planete)):
@@ -86,6 +87,9 @@ class quadtree():
 
     def show(self, canvas):
         canvas.create_rectangle(self.boundary.x-self.boundary.w, self.boundary.y-self.boundary.h, self.boundary.x + self.boundary.w, self.boundary.y + self.boundary.h, outline = 'white')
+        #self.Calc_barycentre()
+        #print(self.barycentre)
+        #canvas.create_text(self.barycentre[0], self.barycentre[1], text = "+", fill = 'white')
         if self.divided:
             self.ne.show(canvas)
             self.nw.show(canvas)
@@ -107,6 +111,29 @@ class quadtree():
                 self.nw.query(rect, found)
                 self.se.query(rect, found)
                 self.sw.query(rect, found)
-
         return found
-         
+
+    def Calc_barycentre(self):
+        summ = 0
+        sumposm = 0
+        #print(self.point)
+        if self.point != None:
+            for p in self.point:
+                summ += p.userdata.m
+                sumposm += p.userdata.m*p.userdata.pos
+            if self.divided:
+                self.ne.Calc_barycentre()
+                self.nw.Calc_barycentre()
+                self.se.Calc_barycentre()
+                self.sw.Calc_barycentre()
+                self.barycentre = sumposm/summ
+        else: 
+            self.barycentre  = [self.boundary.x, self.boundary.y]
+        return self.barycentre
+
+
+
+    
+
+            
+
